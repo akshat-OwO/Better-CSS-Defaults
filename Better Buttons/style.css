@@ -1,0 +1,126 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    font: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+:root {
+    --_hue: 220;
+    --_size: 1.5rem;
+    --_transitionSpeed: 400ms;
+
+    /* light */
+    --bg--light: var(--_hue) 30% 97%;
+    --txt--light: var(--_hue) 40% 5%;
+    --accent--light: var(--_hue) 55% 50%;
+    --secondary--light: calc(var(--_hue) + 190) 30% 57%;
+
+    /* dark */
+    --bg--dark: var(--_hue) 20% 7%;
+    --txt--dark: var(--_hue) 30% 88%;
+    --accent--dark: var(--_hue) 55% 50%;
+    --secondary--dark: calc(var(--_hue) + 190) 20% 57%;
+
+    /* defaults */
+    --bg: var(--bg--light);
+    --txt: var(--txt--light);
+    --accent: var(--accent--light);
+    --secondary: var(--secondary--light);
+    color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: var(--bg--dark);
+        --txt: var(--txt--dark);
+        --accent: var(--accent--dark);
+        --secondary: var(--secondary--dark);
+        color-scheme: dark;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --_transitionSpeed: 100ms;
+    }
+}
+
+body {
+    background-color: hsl(var(--bg));
+    color: hsl(var(--txt));
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+    min-height: 100vh;
+    display: grid;
+    gap: 2rem;
+    place-items: center;
+    place-content: center;
+    padding: 1rem;
+}
+
+.container-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    place-items: center;
+    justify-content: center;
+}
+
+.btn {
+    font-size: var(--_size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    background-color: hsl(var(--accent));
+    color: hsl(var(--bg));
+    text-decoration: none;
+    padding: 0.4em 1.4em;
+    border-radius: 0.2em;
+    box-shadow: 
+    0.05em 0.1em 0.9em hsl(var(--accent) / 0.3),
+    0 0 0 -0.1em hsl(var(--bg)),
+    0 0 0 -0.2em hsl(var(--accent));
+    transition:
+        box-shadow var(--_transitionSpeed) cubic-bezier(0.66,-0.2, 0.27, 1.15),
+        background-color var(--_transitionSpeed) cubic-bezier(0.66, -0.2, 0.27, 1.15);
+}
+
+.btn--secondary {
+    --accent: var(--secondary);
+}
+
+.btn :where(svg, img) {
+    width: var(--_size);
+}
+
+.btn :where(svg, img, span) {
+    pointer-events: none;
+}
+
+.btn:where(:active, :hover) {
+    background-color: hsl(var(--accent) / 0.8);
+    box-shadow: 
+        0 0 0 hsl(var(--accent) / 0.3) ,
+        0 0 0 -0.1em hsl(var(--bg)),
+        0 0 0 -0.2em hsl(var(--accent));
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn:focus-visible {
+    box-shadow: 
+        0 0 0 hsl(var(--accent) / 0.3),
+        0 0 0 0.2em hsl(var(--bg)),
+        0 0 0 0.4em hsl(var(--accent) / 0.5);
+}
